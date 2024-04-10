@@ -64,19 +64,10 @@ $(document).ready(function () {
     const saveChangesBtn = $('#saveChangesBtn');
 
     saveChangesBtn.on('click', function () {
-        // const dateInput = $('#datepicker').val();
-        // const taskTitle = $('#task-title').val();
-        // const taskDescription = $('#task-description').val();
-
-        // const task = {
-        //     title: taskTitle,
-        //     dateInput: dateInput,
-        //     description: taskDescription,
-        //     swimLane: "to-do"
-
-
+        
         // };
         handleAddTask();
+
         // call your handleAddTask function (this function will handle the localstorage)
         // add the new task to your array, set the tasks2 to the new array
         // call your handleTaskList
@@ -95,6 +86,8 @@ function renderTaskList() {
     for (let index = 0; index < taskList.length; index++) {
         const task = taskList[index];
         createTaskCard(task);
+        $( ".card" ).draggable({cursor: "grabbing", opacity: 0.5, zIndex: 2});
+        // $("in-progress-cards").droppable({accept:".card"})
     };
 }
 
@@ -138,10 +131,15 @@ function handleDeleteTask(event) {
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
-function handleDrop(event, ui) {
+function handleDrop(event) {
+        $(".card").draggable({
+          start: function(event, ui) {
+            $(this).css('z-index', '9999');
+        }
+    });
+  };
 
-}
-
+  
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 // $(document).ready(function () {
 //     var testTask = {
